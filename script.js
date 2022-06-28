@@ -1,25 +1,72 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-const alphaCap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-const alphaLow = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-const specialChar = ['!', '@', '#', '$', '%', '^', '&', '*', '_', '+', '{', '}', '>', '<', '?', '+', '-', '/', '[', ']', '~'];
+
+const alphaCap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const alphaLow = 'abcdefghijklmnopqrstuvwxyz';
+const numbers = '1234567890';
+const specialChar = '!#$%&,-./:;<=>?@^_`{|}~'
 
 
+//password generating function
 function generatePassword() {
-  
+
+  var passFramework = '';
+  var createdPassword = '';
+ 
+// if statement for desired password length  
   var passlength = prompt('Please decide the length of your password (8-128 Characters)');
+
+  if (passlength === null) {
+    return '';
+  }
+
+  if (passlength < 8 || passlength > 128) {
+    alert ('You need to select a number between 8 and 128')
+    return generatePassword();
+  }
+
+//if statements for variables desired
+  var passnumbers = confirm('Press okay if you would like to include numbers');
   var uppercase = confirm('Press okay if you would like capital letters');
   var lowercase = confirm('Press okay if you would like lowercase letters');
   var specCharacter = confirm('Press okay if you would like to use special characters');
 
-  if (passlength < 8) {
-    alert('You need to select a number greater than 8');
-    return generatePassword();
+  if (passnumbers === true) {
+    passFramework += numbers
+  }
+
+  if (uppercase === true) {
+    passFramework += alphaCap
   }
   
+  if (lowercase === true) {
+    passFramework += alphaLow
+  }
+
+  if (specCharacter === true) {
+    passFramework += specialChar
+  }
+
+  if (passFramework.length === 0) {
+    var tryagain = confirm('At least one character type needs to be selected. Try again?');
+    if (tryagain = true) {
+      return generatePassword
+    }
+  }
+
+
+  //for statement for combing all elements into randomly generated order
+  for (var i = 0; i < passlength; i++) {
+    createdPassword += passFramework.charAt(Math.floor(Math.random()*passFramework.length))
+
+    console.log(createdPassword)
+  }
+
+  return createdPassword;
+
 }
+
 
 // Write password to the #password input
 function writePassword() {
@@ -33,7 +80,6 @@ function writePassword() {
 
 
 }
-
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
