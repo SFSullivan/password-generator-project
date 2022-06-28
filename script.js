@@ -51,7 +51,7 @@ function generatePassword() {
   if (passFramework.length === 0) {
     var tryagain = confirm('At least one character type needs to be selected. Try again?');
     if (tryagain = true) {
-      return generatePassword
+      return generatePassword();
     }
   }
 
